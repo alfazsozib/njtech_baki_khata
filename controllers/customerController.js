@@ -70,11 +70,118 @@ export const getCustomers = async (req, res) => {
             };
         });
 
-        res.status(200).json({success: true, count: customerList.length, customers: customerList});
+        res.status(200).json({ success: true, count: customerList.length, customers: customerList });
 
     } catch (error) {
         console.error("Get Customers Error: ", error);
-        res.status(500).json({message: "Failed to fetch customers", error: error.message});
+        res.status(500).json({ message: "Failed to fetch customers", error: error.message });
     }
 };
 
+
+// get single customer with transaction 
+// GET /api/customers/:id 
+
+export const getCustomerById = async (req, res) => {
+    try {
+        const customer = await Customer.findOne({
+            _id: req.params.id,
+            shopOwner: req.user._id
+        });
+
+        if (!customer) {
+            res.status(404).json({ message: "Customer not found" });
+        }
+
+        const transactions = await Transaction.find({ customer: customer._id })
+            .populate("recordedBy", "name role")
+            .sort({ date: -1 });
+
+        const totalCredit = transactions
+            .filter((t) => t.type === "credit")
+            .reduce((sum, t) => sum + t.amount, 0);
+
+        const totalPaid = transactions
+            .filter((t) => t.type === "payment")
+            .reduce((sum, t) => sum + t.amount, 0);
+
+
+        const currentDue = Math.max(0, totalCredit - totalPaid);
+        res.status(200).json({
+            success: true,
+            customer,
+            summary: {
+                totalCredit,
+                totalPaid,
+                currentDue,
+                creditLimit: customer.creditLimit,
+                status: currentDue === 0 ? "Clear" : "Due",
+            },
+            transactions,
+        });
+
+    } catch (error) {
+        console.error("Get Customer Detail Error: ", error);
+        res.status(500).json({ message: "Failed to get customer detail", error: error.message });
+
+    }
+}
+
+
+// update customer details 
+// PUT /api/customers/:id 
+
+export const updateCustomer = async (req, res) => {
+    try {
+        const customer = await Customer.findOne({
+            _id: req.params.id,
+            shopOwner: req.user._id,
+        });
+
+        if (!customer) {
+            return res.status(404).json({ message: "Customer not found" });
+        }
+
+        const { name, phone, address, creditLimit, notes } = req.body;
+
+        if (name) customer.name = name.trim();
+        if (phone) customer.phone = phone.trim();
+        if (address !== undefined) customer.address = address.trim();
+        if (creditLimit !== undefined) customer.creditLimit = creditLimit;
+        if (notes !== undefined) customer.notes = notes.trim();
+
+        await customer.save();
+
+        res.status(200).json({ message: "Customer Updated Successfully" });
+    } catch (error) {
+        console.error({ message: "Update Customer Error ", error: error.message })
+        res.status(500).json({ message: "Failed to update customer", error: error.message });
+
+    }
+};
+
+// delete customer and all their transactions 
+// DELETE /api/customer/:id
+
+export const deleteCustomer = async (req, res) =>{
+    try {
+        const customer = await Customer.findOne({
+            _id: req.params.id,
+            shopOwner: req.user._id
+        })
+
+        if(!customer){
+            return res.status(404).json({message: "Customer not found"});
+        }
+
+        // remove the transactions of that customer 
+        await Transaction.deleteMany({customer: customer._id});
+        await Customer.deleteOne({_id: customer._id});
+
+        res.status(200).json({message: "Customer deleted"});
+
+    } catch (error) {
+        console.error("Delete Customer Error ", error);
+        res.status(500).json({message: "Failed to delete", error: error.message})
+    }
+}
