@@ -36,6 +36,10 @@ export const addTransaction = async (req, res) => {
                 .filter((t) => t.type === "credit")
                 .reduce((sum, t) => sum + t.amount, 0);
 
+            const totalPaid = pastTransaction
+                .filter((t) => t.type === "payment")
+                .reduce((sum, t) => sum + t.amount, 0);
+
             const currentDue = Math.max(0, totalCredit - totalPaid);
             if (numAmount > currentDue) {
                 return res.status(400).json({
@@ -73,8 +77,6 @@ export const addTransaction = async (req, res) => {
 export const getShopTransaction = async (req, res) => {
     try {
         const limit = Number(req.query.limit) || 20;
-
-
         const transactions = await Transaction.find({ shopOwner: req.user._id })
             .populate("customer", "name phone")
             .populate("recordedBy", "name role")
@@ -85,29 +87,29 @@ export const getShopTransaction = async (req, res) => {
 
     } catch (error) {
         console.error("get Transactions Error: ", error);
-        res.status(500).json({mesage: "Failed to fetch transactions ", error: error.message});
+        res.status(500).json({ mesage: "Failed to fetch transactions ", error: error.message });
     }
 };
 
 
 // delete a transaction
 // DELETE /api/transactions/:id
-export const deleteTransaction = async (req, res) =>{
+export const deleteTransaction = async (req, res) => {
     try {
         const transaction = await Transaction.findOne({
             _id: req.params.id,
             shopOwner: req.user._id,
         })
 
-        if(!transaction){
-            return res.status(404).json({message: "Transaction removed successfully"});
+        if (!transaction) {
+            return res.status(404).json({ message: "Transaction removed successfully" });
         }
 
-        await Transaction.deleteOne({_id: transaction._id});
+        await Transaction.deleteOne({ _id: transaction._id });
 
-        res.status(200).json({success: true, message: "Transaction removed successfully"});
+        res.status(200).json({ success: true, message: "Transaction removed successfully" });
     } catch (error) {
         console.error("Delete Transaction Error: ", error);
-        res.status(500).json({message: "Failed to delete transaction ", error: error.message});
+        res.status(500).json({ message: "Failed to delete transaction ", error: error.message });
     }
 };

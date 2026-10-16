@@ -9,7 +9,7 @@ const transactionSchema = new mongoose.Schema(
         },
         shopOwner: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
+            ref: "user",
             required: true,
         },
         type: {
@@ -34,7 +34,7 @@ const transactionSchema = new mongoose.Schema(
         // Which staff or owner physically typed and saved this transaction
         recordedBy: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
+            ref: "user",
             required: true,
         },
         date: {
