@@ -39,7 +39,7 @@ export const createCustomer = async (req, res) => {
 export const getCustomers = async (req, res) => {
     try {
         const customers = await Customer.find({ shopOwner: req.user._id }).sort({ createdAt: -1 });
-        const transactions = await transactions.find({ shopOwner: req.user._id });
+        const transactions = await Transaction.find({ shopOwner: req.user._id });
 
         // map all customers and calculate dues 
         const customerList = customers.map((c) => {
