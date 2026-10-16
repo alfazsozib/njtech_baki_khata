@@ -115,5 +115,14 @@ export const loginUser = async (req, res) => {
         console.error("Login Error:", error);
         res.status(500).json({ message: "Server error during login", error: error.message });
     }
+}
 
+
+// Get current logged in user
+// GET  /api/auth/me
+export const getMe = async (req, res) =>{
+    res.json({
+        success: true,
+        user: req.user,
+    })
 }
