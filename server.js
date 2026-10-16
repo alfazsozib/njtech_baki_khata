@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
 import customerRoutes from "./routes/customerRoutes.js"
+import transactionRoutes from "./routes/transactionRoutes.js"
 
 dotenv.config();
 
@@ -15,6 +16,9 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/customer", customerRoutes);
+app.use("/api/transaction", transactionRoutes);
+
+
 
 // testing 
 app.get("/", (req, res) => {
