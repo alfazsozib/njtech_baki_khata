@@ -13,7 +13,13 @@ app.use(express.json());
 
 
 
-
+// testing 
+app.get("/", (req, res) => {
+    res.json({
+        status: "Well Done",
+        message: "Baki khata server is working"
+    })
+})
 
 // DB connection  
 const startServer = async () => {
