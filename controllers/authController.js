@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import User from "../models/Users.js";
-import generateToken from "server/utils/generateToken.js";
+import generateToken from "../utils/generateToken.js";
 
 
 // Register a new dokandar or stuff 

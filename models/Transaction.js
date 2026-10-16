@@ -51,6 +51,6 @@ const transactionSchema = (
 // search by customer and shop 
 transactionSchema.index({shopOwner:1, date: -1});
 
-const Transaction = mongoose.model("Transaction", transactionSchema);
+const Transaction = mongoose.model("transaction", transactionSchema);
 
 export default Transaction;
