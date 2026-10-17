@@ -22,7 +22,7 @@ function App() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#01021d] text-[#dfdfdf]">
+    <div className="flex min-h-screen flex-col bg-[#f8fafc] text-slate-800">
 
       <Navbar user={user} onLogout={handleLogout} />
 

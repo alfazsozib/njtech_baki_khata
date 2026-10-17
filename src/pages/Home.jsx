@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <div className="flex min-h-[calc(100vh-8rem)] flex-col items-center justify-center p-6 text-center">
-      <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+      <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
         Digital Baki Khata
       </h1>
-      <p className="mt-3 max-w-md text-sm text-gray-400">
+      <p className="mt-3 max-w-md text-sm text-slate-800">
         Manage customer credit, record payments, and predict default risk.
       </p>
       <div className="mt-6 flex gap-3">

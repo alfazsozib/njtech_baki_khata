@@ -80,37 +80,6 @@ function Register({onRegisterSuccess}) {
           </div>
         )}
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-          
-          {/* Role selector */}
-          <div>
-            <label className="block text-xs font-medium text-gray-300 mb-1">
-              Account Role
-            </label>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => setFormData({ ...formData, role: "owner" })}
-                className={`py-2 text-xs rounded-lg border transition-colors cursor-pointer ${
-                  formData.role === "owner"
-                    ? "border-[#2914e7] bg-[#2914e7]/20 text-white font-semibold"
-                    : "border-[#1e204a] bg-[#01021d] text-gray-400"
-                }`}
-              >
-                Owner
-              </button>
-              <button
-                type="button"
-                onClick={() => setFormData({ ...formData, role: "staff" })}
-                className={`py-2 text-xs rounded-lg border transition-colors cursor-pointer ${
-                  formData.role === "staff"
-                    ? "border-[#2914e7] bg-[#2914e7]/20 text-white font-semibold"
-                    : "border-[#1e204a] bg-[#01021d] text-gray-400"
-                }`}
-              >
-                Staff
-              </button>
-            </div>
-          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-medium text-gray-300 mb-1">

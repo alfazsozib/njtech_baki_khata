@@ -29,7 +29,7 @@ function Navbar({ user, onLogout }) {
               <button
                 type="button"
                 onClick={handleLogoutClick}
-                className="rounded-lg bg-red-500/10 px-3.5 py-1.5 text-xs font-semibold text-red-400 hover:bg-red-500/20 transition-all cursor-pointer"
+                className="rounded-lg px-3.5 py-1.5 text-xs font-semibold text-red-400 hover:bg-red-500/20 transition-all cursor-pointer"
               >
                 Logout
               </button>
