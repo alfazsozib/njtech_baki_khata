@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 
-function Register() {
+function Register({onRegisterSuccess}) {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: "",
@@ -46,6 +46,8 @@ function Register() {
             
             localStorage.setItem("token", data.token);
             localStorage.setItem("user", JSON.stringify(data.user));
+            if (onRegisterSuccess) onRegisterSuccess(data.user);
+
             
             
             setSuccess("Account created successfully! Redirecting...");

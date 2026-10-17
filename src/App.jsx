@@ -1,28 +1,41 @@
-import './App.css'
-import Footer from './components/Footer'
-import Navbar from './components/Navbar'
-import Login from './pages/Login'
-import Home from './pages/Home'
-import Register from './pages/Register'
-
-import { Routes, Route, Link } from "react-router-dom";
+import React, { useState } from 'react';
+import './App.css';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
+import { Routes, Route } from "react-router-dom";
 
 function App() {
 
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem("user");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setUser(null);
+  };
 
   return (
-      <div className="flex min-h-screen flex-col bg-[#f2f3f7] text-[#070606]">
-        <Navbar />
-        <main className="flex-1">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Routes>
-        </main>
-        {/* <Footer /> */}
-      </div>
-  )
+    <div className="flex min-h-screen flex-col bg-[#01021d] text-[#dfdfdf]">
+
+      <Navbar user={user} onLogout={handleLogout} />
+
+      <main className="flex-1">
+        <Routes>
+          <Route path="/" element={user ? <Dashboard user={user} /> : <Home />} />
+          <Route path="/login" element={<Login onLoginSuccess={setUser} />} />
+          <Route path="/register" element={<Register onRegisterSuccess={setUser} />} />
+          <Route path="/dashboard" element={<Dashboard user={user} />} />
+        </Routes>
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-function Login() {
+function Login({onLoginSuccess}) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ phone: "", password: "" });
   const [loading, setLoading] = useState(false);
@@ -34,6 +34,8 @@ function Login() {
       // Save token and user info
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
+      if (onLoginSuccess) onLoginSuccess(data.user);
+
 
       setSuccess("Login successful! Redirecting...");
       setTimeout(() => navigate("/"), 1000);
