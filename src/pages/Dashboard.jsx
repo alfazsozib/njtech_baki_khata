@@ -36,10 +36,10 @@ function Dashboard({ user }) {
     try {
       setLoading(true);
       const [custRes, riskRes] = await Promise.all([
-        fetch("http://localhost:5001/api/customer", {
+        fetch("https://njtechbakikhata-production.up.railway.app/api/customer", {
           headers: { Authorization: `Bearer ${token}` },
         }),
-        fetch("http://localhost:5001/api/risk/evaluate", {
+        fetch("https://njtechbakikhata-production.up.railway.app/api/risk/evaluate", {
           headers: { Authorization: `Bearer ${token}` },
         }),
       ]);
@@ -67,8 +67,8 @@ function Dashboard({ user }) {
 
     try {
       const url = editingCustomer
-        ? `http://localhost:5001/api/customer/${editingCustomer._id}`
-        : "http://localhost:5001/api/customer";
+        ? `https://njtechbakikhata-production.up.railway.app/api/customer/${editingCustomer._id}`
+        : "https://njtechbakikhata-production.up.railway.app/api/customer";
       const method = editingCustomer ? "PUT" : "POST";
 
       const res = await fetch(url, {
@@ -98,7 +98,7 @@ function Dashboard({ user }) {
     if (!window.confirm(`Are you sure you want to delete ${name} and all their records?`)) return;
 
     try {
-      const res = await fetch(`http://localhost:5001/api/customer/${id}`, {
+      const res = await fetch(`https://njtechbakikhata-production.up.railway.app/api/customer/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -117,7 +117,7 @@ function Dashboard({ user }) {
     setFeedbackMessage({ type: "", text: "" });
 
     try {
-      const res = await fetch("http://localhost:5001/api/transaction", {
+      const res = await fetch("https://njtechbakikhata-production.up.railway.app/api/transaction", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
