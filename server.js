@@ -18,8 +18,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/customer", customerRoutes);
 app.use("/api/transaction", transactionRoutes);
 
-
-
 // testing 
 app.get("/", (req, res) => {
     res.json({
