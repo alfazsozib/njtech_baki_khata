@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
 import customerRoutes from "./routes/customerRoutes.js"
 import transactionRoutes from "./routes/transactionRoutes.js"
+import riskRoutes from "./routes/riskRoutes.js"
 
 dotenv.config();
 
@@ -17,6 +18,8 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/customer", customerRoutes);
 app.use("/api/transaction", transactionRoutes);
+app.use("/api/risk", riskRoutes);
+
 
 // testing 
 app.get("/", (req, res) => {
