@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Phone, Lock, AlertCircle, Arrowleft } from "lucide-react"
+import { Phone, Lock, AlertCircle, ArrowLeft } from "lucide-react"
 import { Button } from "../components/ui/button"
 
 

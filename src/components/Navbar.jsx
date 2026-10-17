@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from './ui/button'
+import { Link } from 'react-router-dom';
 
 function Navbar({onSignInClick, onSignUpClick}) {
   return (
@@ -10,30 +11,29 @@ function Navbar({onSignInClick, onSignUpClick}) {
           <div className="flex items-center gap-2.5 cursor-pointer">
           
           <div className="flex flex-col">
-            <span className="text-lg font-bold tracking-tight text-[#dfdfdf]">
-              Baki Khata
-            </span>
+             <Link to="/" className="flex items-center cursor-pointer">
+          <span className="text-lg font-bold tracking-tight text-[#dfdfdf]">
+            Baki Khata
+          </span>
+        </Link>
           </div>
         </div>
 
 
         {/* signin side*/}
         <div className="flex items-center gap-3">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onSignInClick}
-            className="text-muted-foreground hover:text-foreground font-medium cursor-pointer"
+        <Link
+            to="/login"
+            className="text-xs sm:text-sm text-gray-400 hover:text-white font-medium px-3 py-1.5 transition-colors cursor-pointer"
           >
             Sign In
-          </Button>
-          <Button
-            size="sm"
-            onClick={onSignUpClick}
-            className="bg-[#2914e7] hover:bg-[#0b0355] text-white font-medium shadow-sm cursor-pointer"
+          </Link>
+         <Link
+            to="/register"
+            className="text-xs sm:text-sm rounded-lg bg-[#2914e7] hover:bg-[#0b0355] text-white font-medium px-4 py-1.5 shadow-sm transition-colors cursor-pointer"
           >
             Sign Up
-          </Button>
+          </Link>
         </div>
 
         </div>
